@@ -69,7 +69,8 @@ function getEmployee($id){
 
 function createEmployee($data){
     // Maak hier de code om een medewerker toe te voegen
- }
+    print_r($data);
+}
 
 
 function updateEmployee($data){

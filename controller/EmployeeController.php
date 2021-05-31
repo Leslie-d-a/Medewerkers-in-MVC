@@ -12,7 +12,19 @@ function index()
 
 function create(){
     //1. Geef een view weer waarin een formulier staat voor het aanmaken van een medewerker
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $check = true;
+        foreach($_POST['data'] as $id=>$value){
+            if(empty($value)){
+                $check = false;
+                $error[$id] = "* Veld mag niet leeg zijn.";
+            }
+        }
 
+
+        // CreateEmployee(['age'=>$_POST[2],'name'=>$_POST[1]]);
+    }
+    render('employee/create');
 }
 
 function store(){
@@ -33,7 +45,17 @@ function update(){
     $employees = getAllEmployees();
     //1. Update een bestaand persoon met de data uit het formulier en sla deze op in de database
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        updateEmployee(['id'=>$_POST['id'],'age'=>$_POST['age'],'name'=>$_POST['name']]);
+        
+        $check = true;
+        foreach($_POST['data'] as $id=>$value){
+            if(empty($value)){
+                $check = false;
+                $error[$id] = "* Veld mag niet leeg zijn.";
+            }
+        }
+        if($check){
+            // updateEmployee(['id'=>$_POST['data'][0],'age'=>$_POST['data'][2],'name'=>$_POST['data'][1]]);
+        }
     }
     $employees = getAllEmployees();
     //2. Bouw een url en redirect hierheen
