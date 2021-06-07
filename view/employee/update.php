@@ -1,9 +1,10 @@
 <h1>Persoon wijzigen</h1>
 <form name="update" method="post">
-	<input type="hidden" name="data[]" value="<?=$employee["id"] ?>"/>
-	<label><?php echo $error[1]?></label>
-	<input type="text" name="data[]" value="<?=$employee["name"] ?>">
-	<label><?php echo $error[2]?></label>
-	<input type="number" name="data[]" value="<?=$employee["age"] ?>">
-	<input type="submit" value="update">
+	<label for="">Naam: </label>
+	<label><?php echo $errors[1];?></label>
+	<input name="data[]" type="text" value="<?php echo $employee['name'];?>">
+	<label for="">Leeftijd: </label>
+	<label><?php echo $errors[2];?></label>
+	<input name="data[]" type="number" value="<?php echo $employee['age'];?>">
+	<input type="submit" value="toevoegen">
 </form>

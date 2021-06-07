@@ -69,18 +69,28 @@ function getEmployee($id){
 
 function createEmployee($data){
     // Maak hier de code om een medewerker toe te voegen
-    print_r($data);
+    try {
+        $conn=openDatabaseConnection();
+        $stmt = $conn->prepare("INSERT INTO employees (name,age) VALUES (:name,:age)");
+        $stmt->bindParam(":name", $data[0]);
+        $stmt->bindParam(":age", $data[1]);
+        $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo "Connection failed: " . $e->getMessage();
+    }
+    $conn = null;
 }
 
 
-function updateEmployee($data){
+function updateEmployee($data, $id){
     // Maak hier de code om een medewerker te bewerken
     try {
         $conn=openDatabaseConnection();
         $stmt = $conn->prepare("UPDATE employees SET name=:name, age=:age WHERE id=:id");
-        $stmt->bindParam(":name", $data['name']);
-        $stmt->bindParam(":age", $data['age']);
-        $stmt->bindParam(":id", $data['id']);
+        $stmt->bindParam(":name", $data[0]);
+        $stmt->bindParam(":age", $data[1]);
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
     }
     catch(PDOException $e){
