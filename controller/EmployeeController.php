@@ -21,8 +21,7 @@ function create(){
     }
     if($check){
         CreateEmployee($_POST['data']);
-        $employees = getAllEmployees();
-        render('employee/index', ['employees'=>$employees]);
+        header('location:' . URL . 'employee/index');
     } else{
         render('employee/create', ['employee'=>$employee, 'errors'=>$error]);
     }
@@ -44,8 +43,7 @@ function edit($id){
     }
     if($check){
         UpdateEmployee($employee, $id);
-        $employees = getAllEmployees();
-        render('employee/index', ['employees'=>$employees]);
+        header('location:' . URL . 'employee/index');
     }else{
         $employee = getEmployee($id);
         render('employee/update', ['employee'=>$employee, 'errors'=>$error]);
@@ -57,6 +55,11 @@ function update(){
 
 function delete($id){
     $employee = getEmployee($id);
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        deleteEmployee($id);
+
+        header('location:' . URL . 'employee/index');
+    }
     render('employee/delete', ['employee'=>$employee]);
 }
 
